@@ -4,7 +4,7 @@ import React, { PureComponent } from 'react';
 import { View, Text, TextInput, StyleSheet, TouchableOpacity, ScrollView, Keyboard, Alert } from 'react-native';
 import GeoInput from './GeoInput';
 
-const pattern = /^([+-]?\d\d\.?\d*),\s?([+-]?[0-1]?\d\d\.?\d*)$/;
+const pattern = /^([+-]?\d?\d\.?\d*),\s?([+-]?[0-1]?\d?\d\.?\d*)$/;
 
 export default class Location extends PureComponent {
 
@@ -12,7 +12,7 @@ export default class Location extends PureComponent {
         geoCoordinate1: '',
         geoCoordinate2: '',
         distance: 0,
-        coordinates: new Set(), // list view todo
+        coordinateSet: new Set(), // list view todo
     }
 
     setGeoCoordinate1 = coord => this.setState({
@@ -26,7 +26,7 @@ export default class Location extends PureComponent {
     submitGeo1 = () => {
         if (this.validateInput(this.state.geoCoordinate1)) {
             this.setState({
-                coordinates: new Set([...this.state.coordinates, this.state.geoCoordinate1]),
+                coordinateSet: new Set([...this.state.coordinateSet, this.state.geoCoordinate1]),
             })
             this.geoInput2.focus();
         } else {
@@ -38,7 +38,7 @@ export default class Location extends PureComponent {
         if (this.validateInput(this.state.geoCoordinate2)) {
             Keyboard.dismiss();
             this.setState({
-                coordinates: new Set([...this.state.coordinates, this.state.geoCoordinate2]),
+                coordinateSet: new Set([...this.state.coordinateSet, this.state.geoCoordinate2]),
             });
             this.getDistance();
         }
@@ -70,7 +70,7 @@ export default class Location extends PureComponent {
     };
 
     getLatLong = coordString => {
-        const match = coordString.split(",");
+        const match = coordString.split(',');
         const lat = Number(match[0]);
         const long = Number(match[1]);
         return {
