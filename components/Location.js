@@ -8,7 +8,6 @@ const pattern = /^([+-]?\d\d\.?\d*),\s?([+-]?[0-1]?\d\d\.?\d*)$/;
 
 export default class Location extends PureComponent {
 
-
     state = {
         geoCoordinate1: '',
         geoCoordinate2: '',
